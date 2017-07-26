@@ -5,8 +5,8 @@ from bs4 import BeautifulSoup
 from urllib.request import urlopen
 
 # 타학교에서 이용시 수정
-regioncode = 'gne.go.kr'
-schulcode = 'S100000747'
+regioncode = 'jbe.go.kr'
+schulcode = 'P100000429'
 
 # NEIS에서 파싱
 html = urlopen(
