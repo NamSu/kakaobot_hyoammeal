@@ -31,7 +31,7 @@ today = 2
 
 # 월요일 ~ 일요일 = td[8] ~ td[14]
 if today == 6:
-    menu = '일요일은 급식이 제공되지 않습니다'
+    menu = '일요일은 급식이 제공되지 않습니다....'
 else:
     menu = td[today + 8]
 
@@ -41,6 +41,6 @@ print (menu)
 menu = str(menu).replace('*', '').replace('<td', "").replace('<br/></td>', "").replace('class="textC last">', '').replace('class="textC">','').replace('<br/>', '\n').replace('1.', '').replace('2.', '').replace('3.', '').replace('4.', '').replace('5.', '').replace('6.','').replace('7.', '').replace('8.', '').replace('9.', '').replace('10.', '').replace('11.', '').replace('12.', '').replace('13.', '').replace('14.', '').replace('15.', '').replace('1', '').replace(' ', '')
 
 if menu == '':
-    menu = '급식이 없습니다.'
+    menu = '밥이 없습니다. 급식이 없는 날일 수 있으니 확인 바랍니다.'
 
 print (menu)

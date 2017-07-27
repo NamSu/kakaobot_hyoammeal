@@ -118,7 +118,7 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': 'file_name.log',        # message가 저장될 파일명(파일명 변경 가능)
+            'filename': 'message.log',        # message log file name
             'formatter': 'verbose'
         },
     },
