@@ -12,7 +12,7 @@
 * etc...
 
 ### 플러스 친구 추가
-* [@ysmeal](http://404) 영생 급식봇. 서버가 닫혀있다.
+* [@ysmeal](http://pf.kakao.com/_UxcCxlxl) 영생 급식봇. 서버가 닫혀있다.
 
 ### 개발 환경
 * Ubuntu 16.04 
