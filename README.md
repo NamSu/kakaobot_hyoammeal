@@ -41,29 +41,33 @@ HAProxy가 돌아가는 상황에서의 테스트는 하지 못하였다.
 
 <code>cd <working_dir></code>
 ### 3. python 가상환경 구축 및 실행
-<pre><code>python3 -m venv myvenv
-source myvenv/bin/activate
+<pre><code>python3 -m venv (하고싶은 이름)
+source (하고싶은이름)/bin/activate
 </code></pre>
 ### 4. python 추가 요구 패키지 설치
-<code>pip install Django lxml beautifulsoup4 urlopen</code>
+<code>pip3 install django lxml beautifulsoup4 urlopen</code>
 ### 5. 첫 마이그레이션 & 실행
 <code>python3 manage.py migrate</code>
 
-<code>python3 manage.py runserver host-ip:8000</code>
+<code>python3 manage.py runserver host-ip:port</code>
+### 5-1. 실행 확인
+예를 들어서 실행하면,
+
+<code>python3 manage.py runserver 172.16.0.100:1234</code>
 
 아래와 같이 뜬다면 정상적으로 실행된 것이다.
 <pre><code>Performing system checks...
 System check identified no issues (0 silenced).
-July 19, 2017 - 19:18:53
+July 26, 2017 - 21:11:31
 Django version 1.11.3, using settings 'kakaobot.settings'
-Starting development server at http://host-ip:8000/
+Starting development server at http://172.16.0.100:1234/
 Quit the server with CONTROL-C.</code></pre>
-여의치 않다면 로컬로 실행해서 테스트해도 된다.
+여의치 않다면 예제처럼 로컬로 실행해서 테스트해도 된다.
 ### 6. 동작 확인
-카카오톡 플러스친구 자동응답 API에선 http://host-ip:8000/keyboard/에 대한 Request를 요구한다.
+카카오톡 플러스친구 자동응답 API에선 http://host-ip:port/keyboard/에 대한 Request를 요구한다.
 
-터미널에 <code>curl -XGET 'http://host-ip:8000/keyboard/'</code>를 입력해보자.
-<pre><code>nys6635@Ubuntu-nys6635:~$ curl -XGET 'http://host-ip:8000/keyboard/'
+터미널에 <code>curl -XGET 'http://host-ip:port/keyboard/'</code>를 입력해보자.
+<pre><code>nys6635@Ubuntu-nys6635:~$ curl -XGET 'http://host-ip:port/keyboard/'
 {"type": "buttons", "buttons": ["\uc870\uc2dd", "\uc911\uc2dd", "\uc11d\uc2dd", "\ub0b4\uc77c\uc758 \uc870\uc2dd", "\ub0b4\uc77c\uc758 \uc911\uc2dd", "\ub0b4\uc77c\uc758 \uc11d\uc2dd"]}</code></pre>
 정상적으로 작동한다면 이와 같은 정보가 오는것을 확인할 수 있다.
 
@@ -71,7 +75,7 @@ Quit the server with CONTROL-C.</code></pre>
  
 터미널에 
 ```
-curl -XPOST 'http://host-ip:8000/message' -d '{ "user_key": "encryptedUserKey", "type" : "text", "content": "중식"}'
+curl -XPOST 'http://host-ip:port/message' -d '{ "user_key": "encryptedUserKey", "type" : "text", "content": "중식"}'
 ```
   를 입력해보자.
   
@@ -93,5 +97,9 @@ schulCode = 'P100000427'
 ### 8. 카카오톡 플러스 친구와 연동
 타게시물들을 참조하도록 하자.
 
+처음 입력하는 이름은 서비스 이름이 아니므로 주의 바람.
+
 ### 9. TODO
 학교 시간표 추가
+
+칼로리 추가

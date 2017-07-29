@@ -13,7 +13,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-# GET ~/keyboard/ 요청에 반응
+# Kakao GET ~/keyboard/ 요청에 반응
 def keyboard(request):
     return JsonResponse({
         'type': 'buttons',
@@ -21,13 +21,14 @@ def keyboard(request):
     })
 
 
-# csrf 토큰 에러 방지, POST 요청에 message response
+# csrf 토큰 에러 방지, POST GET에 Response
 @csrf_exempt
 def message(request):
     json_str = ((request.body).decode('utf-8'))
     received_json_data = json.loads(json_str)
     meal = received_json_data['content']
 
+    # 나중엔 수정해야함.
     daystring = ["월", "화", "수", "목", "금", "토", "일"]
     today = datetime.datetime.today().weekday()
 
@@ -59,7 +60,7 @@ def message(request):
         })
 
 
-# message 요청 받을시 크롤링 실시
+# message request 있을시 Crawl 작동
 def crawl(request):
     from bs4 import BeautifulSoup
     from urllib.request import urlopen
@@ -79,14 +80,14 @@ def crawl(request):
     if meal == '저녁' or meal == '내일 저녁':
         sccode = 3
 
-    # NEIS에서 파싱
+    # NEIS
     html = urlopen(
         'http://stu.' + regioncode + '/sts_sci_md01_001.do?schulCode=' + schulcode + '&schulCrseScCode=4&schulKndScCode=04&schMmealScCode=' + str(
             sccode))
     source = html.read()
     html.close()
 
-    # beautifulsoup4를 이용해 utf-8, lxml으로 파싱
+    # to use beautifulsoup4 & make utf-8, parse lxml
     soup = BeautifulSoup(source, "lxml", from_encoding='utf-8')
 
     # div_id="contents"안의 table을 모두 검색 후 td태그만 추출
@@ -101,19 +102,19 @@ def crawl(request):
     # 월요일 ~ 일요일 = td[8] ~ td[14]
     if meal == '아침' or meal == '점심' or meal == '저녁':
         if today == 6:
-            menu = '일요일은 급식이 제공되지 않습니다....'
+            menu = '일요일은 급식이 제공되지 않습니다.... \n \n'
         else:
             menu = td[today + 8]
 
     if meal == '내일 아침' or meal == '내일 점심' or meal == '내일 저녁':
         if today == 5:
-            menu = '일요일은 급식이 제공되지 않습니다....'
+            menu = '일요일은 급식이 제공되지 않습니다.... \n \n'
         elif today == 6:
             menu = td[8]
         else:
             menu = td[today + 9]
 
-    # 파싱 후 불필요한 태그 잔해물 제거
+    # 파싱 후 쓰레기 값 제거
     menu = str(menu).replace('*', '').replace('<td', '').replace('<br/></td>', '').replace('</td>', '').replace(
         'class="textC last">', '').replace('class="textC">', '').replace('<br/>', '\n').replace('1.', '').replace('2.',
                                                                                                                   '').replace(
@@ -124,6 +125,6 @@ def crawl(request):
         '1', '').replace(' ', '')
 
     if menu == '':
-        menu = '밥이 없습니다. 급식이 없는 날일 수 있으니 확인 바랍니다.'
+        menu = '밥이 없습니다. 급식이 없는 날일 수 있으니 확인 바랍니다. \n \n'
 
     return menu
