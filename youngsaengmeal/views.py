@@ -27,6 +27,7 @@ def message(request):
     json_str = ((request.body).decode('utf-8'))
     received_json_data = json.loads(json_str)
     meal = received_json_data['content']
+    kcal = received_json_data['content']
 
     # 나중엔 수정해야함.
     daystring = ["월", "화", "수", "목", "금", "토", "일"]
@@ -40,7 +41,7 @@ def message(request):
     if meal == '아침' or meal == '점심' or meal == '저녁':
         return JsonResponse({
             'message': {
-                'text': today_date + daystring[today] + '요일 ' + meal + ' 메뉴입니다. \n \n' + crawl(request)
+                'text': today_date + daystring[today] + '요일 ' + meal + ' 메뉴입니다. \n \n' + kcal + crawl(request)
             },
             'keyboard': {
                 'type': 'buttons',
@@ -102,13 +103,13 @@ def crawl(request):
     # 월요일 ~ 일요일 = td[8] ~ td[14]
     if meal == '아침' or meal == '점심' or meal == '저녁':
         if today == 6:
-            menu = '일요일은 급식이 제공되지 않습니다.... \n \n'
+            menu = '일요일은 급식이 제공되지 않습니다....'
         else:
             menu = td[today + 8]
 
     if meal == '내일 아침' or meal == '내일 점심' or meal == '내일 저녁':
         if today == 5:
-            menu = '일요일은 급식이 제공되지 않습니다.... \n \n'
+            menu = '일요일은 급식이 제공되지 않습니다.... '
         elif today == 6:
             menu = td[8]
         else:
@@ -125,6 +126,6 @@ def crawl(request):
         '1', '').replace(' ', '')
 
     if menu == '':
-        menu = '밥이 없습니다. 급식이 없는 날일 수 있으니 확인 바랍니다. \n \n'
+        menu = '밥이 없습니다. 급식이 없는 날일 수 있으니 확인 바랍니다.'
 
     return menu
