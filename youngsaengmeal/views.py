@@ -27,7 +27,6 @@ def message(request):
     json_str = ((request.body).decode('utf-8'))
     received_json_data = json.loads(json_str)
     meal = received_json_data['content']
-    kcal = received_json_data['content']
 
     # 나중엔 수정해야함.
     daystring = ["월", "화", "수", "목", "금", "토", "일"]
@@ -41,7 +40,7 @@ def message(request):
     if meal == '아침' or meal == '점심' or meal == '저녁':
         return JsonResponse({
             'message': {
-                'text': today_date + daystring[today] + '요일 ' + meal + ' 메뉴입니다. \n \n' + kcal + crawl(request)
+                'text': today_date + daystring[today] + '요일 ' + meal + ' 메뉴입니다. \n' + crawl(request)
             },
             'keyboard': {
                 'type': 'buttons',
@@ -51,7 +50,7 @@ def message(request):
     if meal == '내일 아침' or meal == '내일 점심' or meal == '내일 저녁':
         return JsonResponse({
             'message': {
-                'text': '[' + meal + '] \n' + tomorrow_date + nextdaystring[today] + '요일 급식 메뉴입니다. \n \n' + crawl(
+                'text': '[' + meal + '] \n' + tomorrow_date + nextdaystring[today] + '요일 메뉴입니다. \n' + crawl(
                     request)
             },
             'keyboard': {
