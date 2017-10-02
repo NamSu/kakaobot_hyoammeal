@@ -40,8 +40,9 @@ def message(request):
     if meal == '아침' or meal == '점심' or meal == '저녁':
         return JsonResponse({
             'message': {
-                'text': today_date + daystring[today] + '요일 ' + meal + ' 메뉴입니다. \n' + crawl(request)
-            },
+                'text': '[' + meal + '] \n' + today_date + daystring[today] + '요일 메뉴입니다. \n' + crawl(request)
+            }
+            ,
             'keyboard': {
                 'type': 'buttons',
                 'buttons': ['아침', '점심', '저녁', '내일 아침', '내일 점심', '내일 저녁']
@@ -50,8 +51,7 @@ def message(request):
     if meal == '내일 아침' or meal == '내일 점심' or meal == '내일 저녁':
         return JsonResponse({
             'message': {
-                'text': '[' + meal + '] \n' + tomorrow_date + nextdaystring[today] + '요일 메뉴입니다. \n' + crawl(
-                    request)
+                'text': '[' + meal + '] \n' + tomorrow_date + nextdaystring[today] + '요일 메뉴입니다. \n' + crawl(request)
             },
             'keyboard': {
                 'type': 'buttons',
