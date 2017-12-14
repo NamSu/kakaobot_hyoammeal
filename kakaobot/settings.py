@@ -86,7 +86,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-kr'
 
 TIME_ZONE = 'Asia/Seoul'
 
@@ -118,7 +118,7 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': 'message.log',        # message log file name
+            'filename': 'log.log',        # message가 저장될 파일명(파일명 변경 가능)
             'formatter': 'verbose'
         },
     },
@@ -128,9 +128,9 @@ LOGGING = {
             'propagate': True,
             'level':'DEBUG',
         },
-        'app_name': {                   # Project에서 생성한 app의 이름
+        'youngsaengmeal': {                   # Project에서 생성한 app의 이름
             'handlers': ['file'],          # 다른 app을 생성 후 해당 app에서도
-            'level': 'DEBUG',          # 사용하고자 할 경우 해당 app 이름으로
+            'level': 'ERROR',          # 사용하고자 할 경우 해당 app 이름으로
         },                                      # 좌측 코드를 추가 작성해서 사용
     }
 }
