@@ -46,7 +46,7 @@ def message(request):
                 'buttons': ['오늘 급식', '내일 급식', '다른 요일 급식']
             }
         })
-    elif meal == '내일 식단표':
+    elif meal == '내일 급식':
         return JsonResponse({
             'message': {
                 'text': '[' + meal + '] \n' + tomorrow_date.strftime("%m월 %d일 ") + nextdaystring[today] + '요일 급식입니다. \n' + read_txt(meal, today, daystring)
@@ -56,7 +56,7 @@ def message(request):
                 'buttons': ['오늘 급식', '내일 급식', '다른 요일 급식']
             }
         })
-    elif meal == '다른 요일 식단표':
+    elif meal == '다른 요일 급식':
         return JsonResponse({
             'message': {
                 'text': '급식정보가 필요한 요일을 입력해주세요.\n입력 가능 요일 : 월 화 수 목 금 토'
@@ -87,9 +87,9 @@ def message(request):
 
 def read_txt(meal, today, daystring):
     # 0(월요일) ~ 5(토요일).txt read
-    if meal == '오늘 식단표':
+    if meal == '오늘 급식':
         f = open(str(today) + ".txt", 'r')
-    if meal == '내일 식단표':
+    if meal == '내일 급식':
         if today == 6:
             f = open("0.txt", 'r')
         else:

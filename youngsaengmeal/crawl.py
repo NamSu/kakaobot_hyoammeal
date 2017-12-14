@@ -11,8 +11,8 @@ while sccode < 4:
     url = ('http://stu.' + regioncode + '/sts_sci_md01_001.do?schulCode=' + schulcode + '&schulCrseScCode=4&schulKndScCode=04&schMmealScCode=' + str(sccode))
     try:
         source = urllib.request.urlopen(url, timeout=3)
-    except Exception as e:
-        print(e)
+    except Exception as error:
+        print(error)
         menu = ('급식 정보를 가져오는데 문제가 발생하였습니다.\n1:1톡으로 문제가 있다고 전해주세요.')
     else:
         # beautifulsoup4를 이용해 파싱
@@ -39,11 +39,11 @@ while sccode < 4:
             if today != 6:
                 if sccode == 1:
                     f = open(str(today) + ".txt", 'w')
-                    f.write("[조식]\n")
+                    f.write("[아침]\n")
                 elif sccode == 2:
-                    f.write("\n\n[중식]\n")
+                    f.write("\n[점심]\n")
                 elif sccode == 3 and today != 5:
-                    f.write("\n\n[석식]\n")
+                    f.write("\n[저녁]\n")
                 f.write(menu)
             else:
                 f = open(str(today) + ".txt", 'w')
