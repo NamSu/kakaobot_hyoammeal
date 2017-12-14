@@ -12,7 +12,7 @@
 * etc...
 
 ### 플러스 친구 추가
-* [@ysmeal](http://pf.kakao.com/_UxcCxlxl) 영생 급식봇. 서버가 닫혀있다.
+* [@ysmeal](http://pf.kakao.com/_UxcCxlxl) 영생 급식봇
 
 ### 개발 환경
 * Ubuntu 16.04 
@@ -45,7 +45,7 @@ HAProxy가 돌아가는 상황에서의 테스트는 하지 못하였다.
 source (하고싶은이름)/bin/activate
 </code></pre>
 ### 4. python 추가 요구 패키지 설치
-<code>pip3 install django lxml beautifulsoup4 urlopen</code>
+<code>pip3 install django lxml beautifulsoup4 python-dateutil</code>
 ### 5. 첫 마이그레이션 & 실행
 <code>python3 manage.py migrate</code>
 
@@ -70,6 +70,8 @@ Quit the server with CONTROL-C.</code></pre>
 <pre><code>nys6635@Ubuntu-nys6635:~$ curl -XGET 'http://host-ip:port/keyboard/'
 {"type": "buttons", "buttons": ["\uc870\uc2dd", "\uc911\uc2dd", "\uc11d\uc2dd", "\ub0b4\uc77c\uc758 \uc870\uc2dd", "\ub0b4\uc77c\uc758 \uc911\uc2dd", "\ub0b4\uc77c\uc758 \uc11d\uc2dd"]}</code></pre>
 정상적으로 작동한다면 이와 같은 정보가 오는것을 확인할 수 있다.
+
+**중요!** 꼭 /keyboard 까지만 입력했을때 정보가 와야한다. 아니면 무수한 에러 메세지만 받을것이다.
 
 또한 keyboard에서 선택한 메뉴의 응답으로 message를 반환하는데 POST형태로 서버로 요구사항을 전달하고  GET으로 정보를 받는다.
  
@@ -99,7 +101,16 @@ schulCode = 'P100000427'
 
 처음 입력하는 이름은 서비스 이름이 아니므로 주의 바람.
 
-### 9. TODO
+### 9. crontab을 이용한 주기적 파싱
+crontab 은 주기적으로 실행을 시킬수 있도록 하는 도구이다. 자세한 설명은 구글을 찾아보자.
+
+~~~
+crontab -e 
+
+# 매주 일요일 04시 10분에 crawl.py 실행 
+30 4 * * 7 cd ~/kakaobot_youngsaengmeal &&/usr/bin/python3 ~/kakaobot_youngsaengmeal/youngsaengmeal/crawl.py
+~~~
+
+### 10. TODO
 학교 시간표 추가
 
-칼로리 추가
