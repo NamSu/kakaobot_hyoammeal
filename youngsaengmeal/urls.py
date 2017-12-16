@@ -5,5 +5,6 @@ from . import views
 # fail 415 에러시에만 수정.
 urlpatterns = [
         url(r'^keyboard/', views.keyboard),
+        url(r'^keyboard', views.keyboard),
         url(r'^message', views.message),
 ]
