@@ -27,11 +27,11 @@ while sccode < 4:
         while today < 7:
             # 월요일 ~ 토요일 = td[8] ~ td[13]
             menu = td[today + 8]
-
+ 
             # 파싱 후 불필요한 태그 잔해물 제거
             menu = str(menu).replace('*', '').replace('<td', "").replace('<br/></td>', "").replace('</td>', '').replace('class="textC last">', '').replace('class="textC">','').replace('<br/>', '\n').replace('1.', '').replace('2.', '').replace('3.', '').replace('4.', '').replace('5.', '').replace('6.','').replace('7.', '').replace('8.', '').replace('9.', '').replace('10.', '').replace('11.', '').replace('12.', '').replace('13.', '').replace('14.', '').replace('15.', '').replace('1', '').replace(' ', '')
 
-            if menu == '':
+            if menu == '' and today != 6 and sccode != 3:
                 menu = '급식이 제공되지 않는 날입니다.\n직접 확인해주시기 바랍니다.'
 
             f = open(str(today) + ".txt", 'a')
