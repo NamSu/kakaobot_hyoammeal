@@ -1,4 +1,5 @@
 import urllib.request
+import ssl
 from bs4 import BeautifulSoup
 
 # 타학교에서 이용시 수정
@@ -10,7 +11,8 @@ while sccode < 4:
     # NEIS에서 조식 파싱
     url = ('http://stu.' + regioncode + '/sts_sci_md01_001.do?schulCode=' + schulcode + '&schulCrseScCode=4&schulKndScCode=04&schMmealScCode=' + str(sccode))
     try:
-        source = urllib.request.urlopen(url, timeout=3)
+        context = ssl._create_unverified_context()
+        source = urllib.request.urlopen(url, timeout=3, context=context)
     except Exception as error:
         print(error)
         menu = ('급식 정보를 가져오는데 문제가 발생하였습니다.\n1:1톡으로 문제가 있다고 전해주세요.')
